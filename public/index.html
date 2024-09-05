@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><link rel="icon" href="dist/logo.ico"><title>思绪思维导图</title><script>// 自定义静态资源的路径
+    window.externalPublicPath = './dist/'
+    // 接管应用
+    window.takeOverApp = true</script><link href="dist/css/chunk-vendors.css?26a4415683d54082aee2" rel="stylesheet"><link href="dist/css/app.css?26a4415683d54082aee2" rel="stylesheet"></head><body><noscript><strong>We're sorry but thoughts doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><script>const defaultMindMap = {
+      root: {
+        data: {
+          text: '根节点'
+        },
+        children: []
+      },
+      theme: {
+        template: 'blueSky',
+        config: {}
+      },
+      layout: 'logicalStructure',
+      config: {},
+      view: null
+    };
+
+    let currentMindMapData = defaultMindMap
+
+    const setTakeOverAppMethods = mindMapData => {
+      window.takeOverAppMethods = {}
+      // 获取思维导图数据的函数
+      window.takeOverAppMethods.getMindMapData = () => {
+        return mindMapData
+      }
+      // 保存思维导图数据的函数
+      window.takeOverAppMethods.saveMindMapData = data => {
+        currentMindMapData = data
+      }
+      // 获取语言的函数
+      window.takeOverAppMethods.getLanguage = () => {
+        return localStorage.getItem('mindMap::lang') || 'zh'
+      }
+      // 保存语言的函数
+      window.takeOverAppMethods.saveLanguage = lang => {
+        localStorage.setItem('mindMap::lang', lang)
+      }
+      // 获取本地配置的函数
+      window.takeOverAppMethods.getLocalConfig = () => {
+        let config = JSON.parse(localStorage.getItem('mindMap::localConfig')) || {};
+
+        config.isViewerMode = true;
+      }
+      // 保存本地配置的函数
+      window.takeOverAppMethods.saveLocalConfig = config => {
+        localStorage.setItem('mindMap::localConfig', JSON.stringify(config))
+      }
+    }
+
+    const initApp = (mindMapData) => {
+      return new Promise((resolve, reject) => {
+        // 设置全局的方法
+        setTakeOverAppMethods(mindMapData)
+        // 思维导图实例创建完成事件
+        window.$bus.$on('app_inited', mindMap => {
+          resolve(mindMap)
+        })
+        // 可以通过window.$bus.$on()来监听应用的一些事件
+        // 实例化页面
+        window.initApp()
+      });
+    }
+
+    window.onload = async () => {
+      if (!window.takeOverApp) return
+
+      if (window.parent !== window) {
+        let currentUrl = new URL(window.location.href)
+        let targetOrigin = currentUrl.searchParams.get('origin') || '*'
+
+        window.parent.postMessage({
+          type: 'app_loaded'
+        }, targetOrigin)
+
+        window.addEventListener('message', event => {
+          if (!event.data) return
+
+          switch (event.data.type) {
+            case 'get_mind_map_data':
+              event.source.postMessage({
+                type: 'mind_map_data',
+                data: currentMindMapData
+              }, event.origin)
+              break;
+            case 'init_set_mind_map_data':
+              initApp(event.data.data).then(mindMap => {
+                event.source.postMessage({
+                  type: 'app_inited',
+                }, event.origin)
+              })
+              break;
+          }
+        })
+      } else {
+        initApp(defaultMindMap);
+      }
+    }</script><script src="dist/js/chunk-vendors.js?26a4415683d54082aee2"></script><script src="dist/js/app.js?26a4415683d54082aee2"></script></body></html>

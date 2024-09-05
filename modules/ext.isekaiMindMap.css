@@ -1,0 +1,13 @@
+.isekai-mindMapViewer {
+    width: 100%;
+    height: 80%;
+    height: 80vh;
+}
+
+.isekai-mindMap-plaintext {
+    display: none;
+}
+
+.ve-activated .isekai-mindMap-plaintext {
+    display: block;
+}

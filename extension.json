@@ -1,0 +1,82 @@
+{
+    "name": "IsekaiMindMap",
+    "namemsg": "isekai-mindmap",
+    "author": "Hyperzlib",
+    "version": "1.0.0",
+    "url": "https://github.com/Isekai-Project/mediawiki-extension-IsekaiMindMap",
+    "descriptionmsg": "isekai-mindmap-desc",
+    "license-name": "MIT",
+    "type": "other",
+    "MessagesDirs": {
+        "IsekaiMindMap": [
+            "i18n"
+        ]
+    },
+    "ExtensionMessagesFiles": {
+        "IsekaiMindMapNamespaces": "IsekaiMindMap.namespaces.php"
+    },
+    "AutoloadNamespaces": {
+        "Isekai\\MindMap\\": "includes/"
+    },
+    "Hooks": {
+        "EditPage::showEditForm:initial": "Isekai\\MindMap\\Hooks::onEditPageShowEditFormInitial",
+        "ParserFirstCallInit": "Isekai\\MindMap\\Hooks::onParserSetup"
+    },
+	"ContentHandlers": {
+		"isekai-mindmap": "Isekai\\MindMap\\IsekaiMindMapContentHandler"
+	},
+    "ResourceModules": {
+        "ext.isekaiMindMap.editor": {
+            "targets": [
+                "desktop",
+                "mobile"
+            ],
+            "scripts": [
+                "ext.isekaiMindMap.editor.js"
+            ],
+            "styles": [
+                "ext.isekaiMindMap.editor.css"
+            ]
+        },
+        "ext.isekaiMindMap": {
+            "targets": [
+                "desktop",
+                "mobile"
+            ],
+            "scripts": [
+                "ext.isekaiMindMap.js"
+            ],
+            "styles": [
+                "ext.isekaiMindMap.css"
+            ]
+        }
+    },
+    "ResourceFileModulePaths": {
+        "localBasePath": "modules",
+        "remoteExtPath": "IsekaiMindMap/modules"
+    },
+    "ParsoidModules": [
+        {
+            "name": "IsekaiMindMap",
+            "tags": [
+                {
+                    "name": "isekaimindmap",
+                    "handler": "Isekai\\MindMap\\ParsoidMindMapTagHandler"
+                }
+            ]
+        }
+    ],
+    "config": {},
+    "namespaces": [
+        {
+            "id": 3750,
+            "constant": "NS_MINDMAP",
+            "name": "MindMap",
+            "subpages": true,
+            "content": true,
+            "defaultcontentmodel": "isekai-mindmap"
+        }
+    ],
+    "callback": "Isekai\\MindMap\\Hooks::registrationCallback",
+    "manifest_version": 2
+}
