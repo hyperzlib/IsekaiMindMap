@@ -1,4 +1,7 @@
 # Isekai MindMap
+
+[中文文档](README_zh.md)
+
 Isekai MindMap is a MediaWiki extension that allows users to create mind maps in a wiki page. It is based on the [simple-mind-map](https://github.com/wanglin2/mind-map)
 
 ## Installation
