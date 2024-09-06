@@ -1,4 +1,6 @@
 {
     "isekai-mindmap": "异世界百科 思维导图",
-    "isekai-mindmap-desc": "在wiki中创建和引用思维导图"
+    "isekai-mindmap-desc": "在wiki中创建和引用思维导图",
+
+    "error-isekai-mindmap-invalid": "MindMap格式错误"
 }

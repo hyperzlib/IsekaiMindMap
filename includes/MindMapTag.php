@@ -2,6 +2,8 @@
 
 namespace Isekai\MindMap;
 
+use Html;
+
 class MindMapTag {
     /**
      * @param string $text
@@ -14,17 +16,17 @@ class MindMapTag {
         $parser->getOutput()->addModules(['ext.isekaiMindMap']);
 
         if (!trim($text) === "") {
-            return '<div>MindMap格式错误</div>';
+            return Html::element('div', [], wfMessage('error-isekai-mindmap-invalid')->parse());
         }
 
         $mindMapData = json_decode($text);
         if (!$mindMapData) {
-            return '<div>MindMap格式错误</div>';
+            return Html::element('div', [], wfMessage('error-isekai-mindmap-invalid')->parse());
         }
 
         $mindMapPlainText = Utils::getMindMapPlainTextOutput($mindMapData);
 
-        return '<div class="isekai-mindMap-plaintext">' . $mindMapPlainText . '</div>' .
-            '<script type="application/x-isekai-mindmap">' . Utils::simpleHtmlEscape($text) . '</script>';
+        return Html::rawElement('div', ['class' => 'isekai-mindMap-plaintext'], $mindMapPlainText) .
+            Html::rawElement('script', ['type' => 'application/x-isekai-mindmap'], Utils::simpleHtmlEscape($text));
     }
 }

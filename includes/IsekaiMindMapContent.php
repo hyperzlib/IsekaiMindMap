@@ -2,6 +2,7 @@
 namespace Isekai\MindMap;
 
 use AbstractContent;
+use Html;
 use JsonContent;
 use MediaWiki\MediaWikiServices;
 
@@ -39,8 +40,8 @@ class IsekaiMindMapContent extends JsonContent {
     }
 
     public function getOutputScriptData() {
-        return '<div class="isekai-mindMap-plaintext">' . $this->getPlainTextOutput() . "</div>" .
-            '<script type="application/x-isekai-mindmap">' . Utils::simpleHtmlEscape($this->getText()) . '</script>';
+        return Html::rawElement('div', ['class' => 'isekai-mindMap-plaintext'], $this->getPlainTextOutput()) .
+            Html::rawElement('script', ['type' => 'application/x-isekai-mindmap'], Utils::simpleHtmlEscape($this->getText()));
     }
 
     public function getWikitextForTransclusion() {
