@@ -1,8 +1,7 @@
 <?php
 namespace Isekai\MindMap;
 
-use AbstractContent;
-use Html;
+use MediaWiki\Html\Html;
 use JsonContent;
 use MediaWiki\MediaWikiServices;
 

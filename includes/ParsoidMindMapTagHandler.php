@@ -22,7 +22,6 @@ class ParsoidMindMapTagHandler extends ExtensionTagHandler {
 
         $parsed = $extApi->extTagToDOM(
             [],
-            '',
             $plainTextOutput,
             [
                 'wrapperTag' => 'div',

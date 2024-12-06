@@ -1,7 +1,7 @@
 <?php
 namespace Isekai\MindMap;
 
-use Html;
+use MediaWiki\Html\Html;
 
 class Utils {
     public static function simpleHtmlEscape($text) {

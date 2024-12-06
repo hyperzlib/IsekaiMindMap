@@ -3,8 +3,8 @@
 namespace Isekai\MindMap;
 
 use Content;
-use ParserOutput;
 use JsonContentHandler;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Content\Renderer\ContentParseParams;
 
 class IsekaiMindMapContentHandler extends JsonContentHandler {
@@ -40,11 +40,11 @@ class IsekaiMindMapContentHandler extends JsonContentHandler {
 		// FIXME: WikiPage::doUserEditContent generates parser output before validation.
 		// As such, native data may be invalid (though output is discarded later in that case).
 		if ($cpoParams->getGenerateHtml() && $content->isValid()) {
-			$parserOutput->setText($content->getOutputScriptData());
+			$parserOutput->setRawText($content->getOutputScriptData());
 			$parserOutput->addModuleStyles(['ext.isekaiMindMap']);
 			$parserOutput->addModules(['ext.isekaiMindMap']);
 		} else {
-			$parserOutput->setText(null);
+			$parserOutput->setRawText(null);
 		}
 	}
 }

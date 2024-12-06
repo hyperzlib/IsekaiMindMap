@@ -1,9 +1,9 @@
 <?php
 namespace Isekai\MindMap;
 
-use EditPage;
-use OutputPage;
-use Title;
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Title\Title;
 
 class Hooks {
     public static function registrationCallback() {
@@ -16,7 +16,7 @@ class Hooks {
 	 * @param string &$model The model name
 	 * @return bool
 	 */
-	public static function onContentHandlerDefaultModelFor($title, &$model) {
+	public static function onContentHandlerDefaultModelFor(Title $title, &$model) {
 		if ($title->getNamespace() === NS_MINDMAP) {
 			$model = CONTENT_MODEL_ISEKAI_MINDMAP;
 			return false;

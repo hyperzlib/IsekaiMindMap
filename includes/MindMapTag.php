@@ -2,17 +2,19 @@
 
 namespace Isekai\MindMap;
 
-use Html;
+use MediaWiki\Html\Html;
+use MediaWiki\Parser\Parser;
+use PPFrame;
 
 class MindMapTag {
     /**
      * @param string $text
      * @param array $params
-     * @param \Parser $parser
-     * @param \PPFrame $frame
+     * @param Parser $parser
+     * @param PPFrame $frame
      * @return string|string[]
      */
-    public static function render($text, $params, \Parser $parser, \PPFrame $frame) {
+    public static function render($text, $params, Parser $parser, PPFrame $frame) {
         $parser->getOutput()->addModules(['ext.isekaiMindMap']);
 
         if (!trim($text) === "") {
