@@ -2,7 +2,7 @@ $(function () {
     console.log('Loading MindMap editor...');
     // Modify the editor
     // Add header offset
-    $mwContentContainer = $('#mw-content-container');
+    $mwContentContainer = $('#bodyContent');
     var offsetTop = $mwContentContainer.offset().top;
 
     var mindMapBasePath = mw.config.get("wgScriptPath") + '/extensions/IsekaiMindMap/public/';
